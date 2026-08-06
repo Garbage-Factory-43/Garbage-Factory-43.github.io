@@ -12,7 +12,12 @@
       <a class="brand" href="/"><span class="mark">43</span> GF43 Apps</a>
     </header>
     <main class="shell policy">
-      <section lang="vi">
+      <nav class="language-switcher" aria-label="Chọn ngôn ngữ / Choose language">
+        <button type="button" class="language-button" data-language="vi" aria-pressed="true">Tiếng Việt</button>
+        <button type="button" class="language-button" data-language="en" aria-pressed="false">English</button>
+      </nav>
+
+      <section lang="vi" data-language-content="vi">
         <h1>Chính sách quyền riêng tư</h1>
         <p class="meta"><strong>Ghi Điểm Bài</strong> · Nhà phát triển: GF43 · Có hiệu lực từ ngày 02/08/2026</p>
         <p>Chính sách này giải thích cách ứng dụng Ghi Điểm Bài xử lý thông tin. Ứng dụng là công cụ ghi điểm cho các trò chơi bài; không cung cấp đặt cược, thanh toán hoặc trò chơi ăn tiền thật.</p>
@@ -40,9 +45,7 @@
         <p>Câu hỏi về quyền riêng tư: <a href="mailto:gf-43@googlegroups.com">gf-43@googlegroups.com</a>.</p>
       </section>
 
-      <hr class="language" />
-
-      <section lang="en">
+      <section lang="en" data-language-content="en" hidden>
         <h1>Privacy Policy</h1>
         <p class="meta"><strong>Ghi Điểm Bài</strong> · Developer: GF43 · Effective August 2, 2026</p>
         <p>This policy explains how Ghi Điểm Bài handles information. The app is a scorekeeping utility for card games; it does not provide wagering, payments, or real-money gaming.</p>
@@ -74,5 +77,45 @@
       <p>Copyright © 2026 GF43. Bảo lưu mọi quyền · All rights reserved.</p>
       <p>Giấy phép · License: Proprietary.</p>
     </footer>
+    <script>
+      (() => {
+        const buttons = document.querySelectorAll('[data-language]');
+        const sections = document.querySelectorAll('[data-language-content]');
+        const pageTitles = {
+          vi: 'Chính sách quyền riêng tư – Ghi Điểm Bài',
+          en: 'Privacy Policy – Ghi Điểm Bài'
+        };
+
+        function showLanguage(language, remember = true) {
+          const selected = language === 'en' ? 'en' : 'vi';
+
+          sections.forEach((section) => {
+            section.hidden = section.dataset.languageContent !== selected;
+          });
+          buttons.forEach((button) => {
+            button.setAttribute('aria-pressed', String(button.dataset.language === selected));
+          });
+
+          document.documentElement.lang = selected;
+          document.title = pageTitles[selected];
+
+          if (remember) {
+            try {
+              localStorage.setItem('gf43-language', selected);
+            } catch (_) {}
+          }
+        }
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => showLanguage(button.dataset.language));
+        });
+
+        let initialLanguage;
+        try {
+          initialLanguage = localStorage.getItem('gf43-language');
+        } catch (_) {}
+        showLanguage(initialLanguage || (navigator.language.startsWith('vi') ? 'vi' : 'en'), false);
+      })();
+    </script>
   </body>
 </html>

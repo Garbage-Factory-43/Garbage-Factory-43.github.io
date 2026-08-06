@@ -5,6 +5,7 @@ Shared website for all GF43 applications, published with GitHub Pages.
 - Home: <https://garbage-factory-43.github.io/>
 - app-ads.txt: <https://garbage-factory-43.github.io/app-ads.txt>
 - Privacy Policy — Ghi Điểm Bài: <https://garbage-factory-43.github.io/apps/ghi-diem-bai/privacy.html>
+- Privacy Policy — Undercover: <https://garbage-factory-43.github.io/apps/undercover/privacy.html>
 
 ## Structure
 
